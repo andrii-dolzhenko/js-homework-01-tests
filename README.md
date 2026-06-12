@@ -1,5 +1,15 @@
 # ДЗ #1
 
+## Demo
+
+GitHub Pages demo:
+
+```text
+https://andrii-dolzhenko.github.io/js-homework-01-tests/
+```
+
+The demo page runs `src/main.js` in the browser and shows `console.log` output directly on the page.
+
 ## 1. Завантажуємо репозиторій та розгортаємо проект
 
 `npm install`

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Homework 01 Demo</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: #1f2937;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(20, 184, 166, 0.16)),
+        #f8fafc;
+    }
+
+    .page {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0;
+    }
+
+    .hero {
+      margin-bottom: 32px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #0f766e;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0 0 14px;
+      color: #0f172a;
+      font-size: clamp(32px, 6vw, 56px);
+      line-height: 1.08;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin: 0;
+      color: #475569;
+      font-size: 19px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .console-panel,
+    .task-panel {
+      border: 1px solid #d9e3ee;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.09);
+    }
+
+    .console-panel {
+      overflow: hidden;
+    }
+
+    .console-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      color: #dbeafe;
+      background: #0f172a;
+    }
+
+    .console-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .status-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .status-dots span:nth-child(1) {
+      background: #ef4444;
+    }
+
+    .status-dots span:nth-child(2) {
+      background: #f59e0b;
+    }
+
+    pre {
+      min-height: 330px;
+      margin: 0;
+      padding: 22px;
+      overflow-x: auto;
+      color: #d1fae5;
+      font: 15px/1.65 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      background: #111827;
+    }
+
+    .task-panel {
+      padding: 22px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: #0f172a;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .task-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .task-list li {
+      padding: 12px 14px;
+      border-left: 4px solid #14b8a6;
+      border-radius: 6px;
+      color: #334155;
+      background: #f8fafc;
+    }
+
+    .source-link {
+      display: inline-flex;
+      margin-top: 22px;
+      color: #2563eb;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .source-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 32px 0;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      pre {
+        min-height: 280px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">JavaScript Homework 01</p>
+      <h1 id="page-title">Variables, data types, and console output</h1>
+      <p class="intro">
+        The homework script runs in the browser, while this page mirrors
+        <code>console.log</code> messages into a visible demo panel.
+      </p>
+    </section>
+
+    <section class="demo-grid" aria-label="Homework demo">
+      <div class="console-panel">
+        <div class="console-bar">
+          <p class="console-title">Console output</p>
+          <div class="status-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <pre id="console-output" aria-live="polite"></pre>
+      </div>
+
+      <aside class="task-panel">
+        <h2>Completed Tasks</h2>
+        <ul class="task-list">
+          <li>Create variables with number, string, boolean, array, and object values.</li>
+          <li>Format a number with two digits after the decimal point.</li>
+          <li>Create a BigInt value and increment it by <code>1n</code>.</li>
+        </ul>
+        <a class="source-link" href="src/main.js">Open source file</a>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const output = document.querySelector('#console-output')
+      const originalLog = console.log.bind(console)
+
+      const formatValue = (value) => {
+        if (typeof value === 'bigint') {
+          return `${value}n`
+        }
+
+        if (typeof value === 'string') {
+          return value
+        }
+
+        if (Array.isArray(value)) {
+          return `[${value.map(formatValue).join(', ')}]`
+        }
+
+        if (value && typeof value === 'object') {
+          return JSON.stringify(value, null, 2)
+            .replace(/"([^"]+)":/g, '$1:')
+            .replace(/"/g, "'")
+        }
+
+        return String(value)
+      }
+
+      console.log = (...args) => {
+        originalLog(...args)
+        output.textContent += `${args.map(formatValue).join(' ')}\n`
+      }
+
+      window.addEventListener('error', (event) => {
+        output.textContent += `Error: ${event.message}\n`
+      })
+    })()
+  </script>
+  <script src="src/main.js"></script>
+</body>
+
+</html>

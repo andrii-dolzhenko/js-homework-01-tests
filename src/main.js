@@ -29,6 +29,11 @@ var myObj = {
   last: 'Last Name'
 };
 
+console.log('myNum: ', myNum)
+console.log('myStr:', myStr)
+console.log('myBool:', myBool)
+console.log('myArr:', myArr)
+console.log('myObj:', myObj)
 
 /*
  * Завдання #2
@@ -42,6 +47,7 @@ var myObj = {
 // ім'я змінної: decimal2, містить число myNum з 2 знаками після коми
 var decimal2 = myNum.toFixed(2);
 
+console.log('decimal2:', decimal2)
 /*
  * Завдання #3
  *
@@ -52,3 +58,5 @@ var decimal2 = myNum.toFixed(2);
 // ім'я змінної: myBigInt (тип BigInt), початкове значення: 123n, потім збільшене на 1n
 var myBigInt = 123n;
 myBigInt += 1n;
+
+console.log('myBigInt:', myBigInt)
