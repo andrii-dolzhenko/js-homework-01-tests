@@ -29,7 +29,7 @@ var myObj = {
   last: 'Last Name'
 };
 
-console.log('myNum: ', myNum)
+console.log('myNum:', myNum)
 console.log('myStr:', myStr)
 console.log('myBool:', myBool)
 console.log('myArr:', myArr)
